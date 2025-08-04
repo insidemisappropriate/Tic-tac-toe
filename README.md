@@ -5,7 +5,7 @@ Follow these steps
 2. open visual studio code
 3. open the terminal in visual studio code
 4. typen git clone https://github.com/insidemisappropriate/Tic-tac-toe.git
-5. then you will hav it on visual studio code
+5. then you will have the code and the README FILE it on visual studio code
 
 
 
