@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tic-Tac-Toe</title>
+  <style>
+    body {
+      background: #e80202;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+    }
+    h1 {
+      color: #8AFFC1;
+    }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(3, 120px);
+      grid-template-rows: repeat(3, 120px);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .cell {
+      width: 120px;
+      height: 120px;
+      background: #fff;
+      font-size: 64px;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+    .cell.x { color: #FFB347; }
+    .cell.o { color: #8AFFC1; }
+    #status {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #222;
+    }
+    #scores {
+      font-size: 1.2em;
+      color: #000000;
+      margin-bottom: 20px;
+    }
+    #reset {
+      padding: 8px 24px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      background: #8AFFC1;
+      color: #222;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tic-Tac-Toe</h1>
+  <div id="status">Player X's turn</div>
+  <div id="board"></div>
+  <div id="scores">
+    Player X: <span id="x-score">0</span> |
+    Player O: <span id="o-score">0</span> |
+    Ties: <span id="tie-score">0</span>
+  </div>
+  <button id="reset" style="display:none;">Play Again</button>
+  <script>
+    const boardElem = document.getElementById('board');
+    const statusElem = document.getElementById('status');
+    const xScoreElem = document.getElementById('x-score');
+    const oScoreElem = document.getElementById('o-score');
+    const tieScoreElem = document.getElementById('tie-score');
+    const resetBtn = document.getElementById('reset');
+
+    let board = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ];
+    let xTurn = true;
+    let gameOver = false;
+    let xScore = 0, oScore = 0, tieScore = 0;
+
+    function renderBoard() {
+      boardElem.innerHTML = '';
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 3; c++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          if (board[r][c] === 'X') cell.classList.add('x');
+          if (board[r][c] === 'O') cell.classList.add('o');
+          cell.textContent = board[r][c];
+          cell.addEventListener('click', () => handleCellClick(r, c));
+          boardElem.appendChild(cell);
+        }
+      }
+    }
+
+    function handleCellClick(r, c) {
+      if (gameOver || board[r][c]) return;
+      board[r][c] = xTurn ? 'X' : 'O';
+      renderBoard();
+      if (checkWinner()) {
+        gameOver = true;
+        if (xTurn) {
+          statusElem.textContent = 'Winner: Player X!';
+          xScore++;
+          xScoreElem.textContent = xScore;
+        } else {
+          statusElem.textContent = 'Winner: Player O!';
+          oScore++;
+          oScoreElem.textContent = oScore;
+        }
+        resetBtn.style.display = 'inline-block';
+      } else if (isTie()) {
+        gameOver = true;
+        statusElem.textContent = "It's a tie!";
+        tieScore++;
+        tieScoreElem.textContent = tieScore;
+        resetBtn.style.display = 'inline-block';
+      } else {
+        xTurn = !xTurn;
+        statusElem.textContent = `Player ${xTurn ? 'X' : 'O'}'s turn`;
+      }
+    }
+
+    function checkWinner() {
+      const lines = [
+        // Rows
+        [[0,0],[0,1],[0,2]],
+        [[1,0],[1,1],[1,2]],
+        [[2,0],[2,1],[2,2]],
+        // Columns
+        [[0,0],[1,0],[2,0]],
+        [[0,1],[1,1],[2,1]],
+        [[0,2],[1,2],[2,2]],
+        // Diagonals
+        [[0,0],[1,1],[2,2]],
+        [[0,2],[1,1],[2,0]]
+      ];
+      for (const line of lines) {
+        const [a, b, c] = line;
+        if (
+          board[a[0]][a[1]] &&
+          board[a[0]][a[1]] === board[b[0]][b[1]] &&
+          board[a[0]][a[1]] === board[c[0]][c[1]]
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function isTie() {
+      return board.flat().every(cell => cell) && !checkWinner();
+    }
+
+    function resetGame() {
+      board = [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
+      ];
+      xTurn = true;
+      gameOver = false;
+      statusElem.textContent = "Player X's turn";
+      renderBoard();
+      resetBtn.style.display = 'none';
+    }
+
+    resetBtn.addEventListener('click', resetGame);
+
+    renderBoard();
+  </script>
+</body> 
+</html><a href="file:///home/fedora/VSC/Memory%20Matching/Memory%20Matching%20game%202.html">click here to play Memory Matching Game</a>
+<a href="../guess the number game website/guess the number website.html">click here to play Guess the Number Game</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website with Alert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .content {
+            padding: 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome to My Website!</h1>
+        <p>This content appears after you dismiss the alert.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
