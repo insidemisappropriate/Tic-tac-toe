@@ -8,7 +8,8 @@ Follow these steps
 5. then you will have the code and the README FILE it on visual studio code
 
    Here is a picture of it
-   <img width="1366" height="651" alt="image" src="https://github.com/user-attachments/assets/c24d16c9-b763-476f-8497-b73c9d54b17c" />
+   <img width="1366" height="651" alt="image" src="https://github.com/user-attachments/assets/7c0e8bdc-beba-4182-adb3-ef5f47c41684" />
+
 
 
 
